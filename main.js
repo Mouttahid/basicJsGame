@@ -1,27 +1,20 @@
-var jeu = document.getElementById('j');
-var c = jeu.getContext('2d');
+var canvas = document.querySelector("canvas");
+var c = canvas.getContext('2d');
 
-jeu.width = 500;
-jeu.height = 500;
+canvas.width = 500;
+canvas.height = 500;
 
-var hero = {
-	x:100,
-	y:jeu.height - 40,
-	w:40,
-	h:40,
-	color:"red"
-}
+var x = 0;
 
-function draw(){
-	rectn(0,0,jeu.width,jeu.height,"lightblue");
-	rectn(hero.x,hero.y,hero.w,hero.h,hero.color);
+function draw()
+{	
+	x += 5;
+
+	c.fillStyle= "lightblue";
+	c.fillRect(0,0,canvas.width,canvas.height);
+
+	c.fillStyle = "green";
+	c.fillRect(x,canvas.height-50,50,50);
 }
 
 setInterval(draw,1000/60);
-
-function rectn(x,y,w,h,color)
-{
-	c.fillStyle=color;
-	c.fillRect(x,y,w,h);
-
-}
