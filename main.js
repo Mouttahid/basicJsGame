@@ -1,20 +1,46 @@
 var canvas = document.querySelector("canvas");
 var c = canvas.getContext('2d');
 
-canvas.width = 500;
+canvas.width = window.innerWidth;
 canvas.height = 500;
 
-var x = 0;
+class Hero{
+	constructor(x,y,w,h,color,speed=5)
+	{
+		this.x = x;
+		this.y = y;
+		this.w = w;
+		this.h = h;
+		this.color = color;
+		this.speed = speed;
+	}
+	}
 
-function draw()
-{	
-	x += 5;
+var hero = new Hero(100,canvas.height-50,50,50,"blue",8);
+var hero2 = new Hero(200,300,60,60,"green");
 
-	c.fillStyle= "lightblue";
-	c.fillRect(0,0,canvas.width,canvas.height);
 
-	c.fillStyle = "green";
-	c.fillRect(x,canvas.height-50,50,50);
-}
+function draw(){	
+	drawRect(0,0,canvas.width,canvas.height,"gold");
+	drawRect(hero.x,hero.y,hero.w,hero.h,hero.color);
+	drawRect(hero2.x,hero2.y,hero2.w,hero2.h,hero2.color);
+	}
+function movements(){
+	hero.x += hero.speed;
+	}
+function collisions(){
+	if (hero.x + hero.w > canvas.width || hero.x < 0)
+	 {hero.speed = -hero.speed;}
+	}
+function render(){
+	draw();
+	movements();
+	collisions();
+	
+	}
+function drawRect(x,y,w,h,color){
+	c.fillStyle= color;
+	c.fillRect(x,y,w,h);
+	}
 
-setInterval(draw,1000/60);
+setInterval(render,1000/60);
